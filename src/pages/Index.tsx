@@ -213,7 +213,7 @@ const Index = () => {
           phone: `${formData.countryCode} ${formData.phone}`,
           course: formData.courses,
           // qualification: formData.qualification || "N/A",
-          source: "Hero Section", // Helps you track lead source in the sheet
+          source: "nmims", // Helps you track lead source in the sheet
           timestamp: new Date().toLocaleString(),
         }),
       });
