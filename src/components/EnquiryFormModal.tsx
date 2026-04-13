@@ -131,7 +131,8 @@ const EnquiryFormModal = () => {
             </select>
             <input 
               className={`border rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20 ${formErrors.phone ? "border-red-500" : "border-gray-200"}`} 
-              placeholder="Mobile number *" 
+              placeholder="Mobile number *"
+              maxLength={10}
               value={formData.phone} 
               onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })} 
             />
