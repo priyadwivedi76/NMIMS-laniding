@@ -199,21 +199,19 @@ const Index = () => {
     setIsSubmitting(true);
     
     // 🔗 REPLACE with your Apps Script Web App URL
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw_MLbkXmZoLqG4oTxgwX0Nm23VA2IGKpPxgc6UQ1dlgJhq3Ovf_Ps0XeL0IYMgS9s7_A/exec";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzuvGL4GhCzifCCd7ImPO9ynoS9bF2ZvTipHzkpLJmBLdIjHPKIoKX2U6jI_MkubTMLLA/exec";
 
     try {
       await fetch(GOOGLE_SHEET_URL, {
         method: "POST",
         mode: "no-cors", 
-        source: "nmims"
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          source: "nmims", // CRITICAL: This tells the script to use the NMIMS tab
           name: formData.name,
           email: formData.email,
-          phone: `${formData.countryCode} ${formData.phone}`,
-          course: formData.courses,
-          // qualification: formData.qualification || "N/A",
-          source: "nmims", // Helps you track lead source in the sheet
+          phone: formData.phone,
+          course: formData.course,
           timestamp: new Date().toLocaleString(),
         }),
       });
