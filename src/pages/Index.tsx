@@ -199,7 +199,7 @@ const Index = () => {
     setIsSubmitting(true);
     
     // 🔗 REPLACE with your Apps Script Web App URL
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzNElF90nqmgZTreF0ZZChWs6rKbpwlvqwV7E6tbOgT1jnwIYRnHfjIfKyxZQIgnBN3/exec";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzzdUwRXKSeGuMFSTLtPYq9hn7f8scbOkf8KbMel0gozx7XiHKkz53Om9QRJq8bEzAc/exec";
 
     try {
       await fetch(GOOGLE_SHEET_URL, {
