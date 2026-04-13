@@ -199,12 +199,13 @@ const Index = () => {
     setIsSubmitting(true);
     
     // 🔗 REPLACE with your Apps Script Web App URL
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxNck42dsV2LQCM0CHA9YOjDtZIIDxdoE1B_mqkqq3XPQ7tY7Qw1uDNy3kBDtcrIpba/execc";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbw_MLbkXmZoLqG4oTxgwX0Nm23VA2IGKpPxgc6UQ1dlgJhq3Ovf_Ps0XeL0IYMgS9s7_A/exec";
 
     try {
       await fetch(GOOGLE_SHEET_URL, {
         method: "POST",
         mode: "no-cors", 
+        source: "nmims"
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
