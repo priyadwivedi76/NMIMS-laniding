@@ -33,7 +33,7 @@ const EnquiryFormModal = () => {
 
     const interval = setInterval(() => {
       setIsOpen(true);
-    }, 30000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
