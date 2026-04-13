@@ -8,7 +8,6 @@ import programBachelor from "@/assets/program-bachelor.png";
 import programExecutive from "@/assets/program-executive.png";
 import programOnline from "@/assets/program-online.png";
 import sampleCertificate from "@/assets/sample-certificate.png";
-import { submitEnquiry } from "@/lib/api";
 
 const NAV_LINKS = ["Programs", "Sample Certificate", "Admission Process", "FAQ"];
 
@@ -211,7 +210,7 @@ const Index = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          course: formData.course,
+          course: formData.courses,
           timestamp: new Date().toLocaleString(),
         }),
       });
@@ -409,7 +408,7 @@ const Index = () => {
           <h2 className="font-display text-4xl font-bold text-slate-900 mb-4">
             Eligibility Criteria
           </h2>
-          <div className="h-1.5 w-20 bg-gradient-to-r from-purple-600 to-rose-500 mx-auto rounded-full" />
+          <div className="h-1.5 w-20 bg-gradient-to-r from-indigo-600 to-rose-500 mx-auto rounded-full" />
         </div>
 
         {/* HOVER LOGIC: 
@@ -420,14 +419,14 @@ const Index = () => {
         <div className="group relative overflow-hidden bg-slate-50 rounded-[2.5rem] p-8 lg:p-12 border border-slate-100 transition-all duration-500 hover:bg-purple-50/50 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-900/5">
           
           {/* Subtle Background Icon that reacts to hover */}
-          <div className="absolute top-0 right-0 p-8 opacity-5 text-slate-900 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12 group-hover:text-purple-600 group-hover:opacity-10">
+          <div className="absolute top-0 right-0 p-8 opacity-5 text-slate-900 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12 group-hover:text-indigo-600 group-hover:opacity-10">
             <GraduationCap size={240} />
           </div>
 
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             {/* Left Column */}
             <div className="space-y-6">
-              <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110">
+              <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110">
                 <GraduationCap size={32} />
               </div>
               <h3 className="text-2xl font-bold text-slate-900 leading-tight transition-colors duration-500 group-hover:text-purple-900">
@@ -479,7 +478,7 @@ const Index = () => {
         <div className="flex flex-col lg:flex-row gap-16 items-center">
           
           {/* Left Side: Content */}
-          <div className="lg:w-1/3 text-left">
+          <div className="lg:w-1/3 text-left ">
             <h2 className="font-display text-4xl font-bold text-slate-900 leading-tight">
               A Learning Experience <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-rose-500">
@@ -489,10 +488,6 @@ const Index = () => {
             <p className="mt-6 text-slate-600 text-lg">
               We've combined technology with academic rigor to create a student-centric ecosystem that fits your lifestyle.
             </p>
-            <button className="mt-8 flex items-center gap-2 font-bold text-purple-600 hover:text-purple-700 transition-colors group">
-              Explore Student Portal 
-              <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </button>
           </div>
 
           {/* Right Side: Interactive Grid */}
@@ -503,7 +498,7 @@ const Index = () => {
             {features.map((item, i) => (
               <div 
                 key={i} 
-                className="group p-8 rounded-3xl bg-white border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1"
+                className="group  p-8 rounded-3xl bg-white border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1"
               >
                 <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-6 shadow-lg transform group-hover:rotate-6 transition-transform`}>
                   {item.icon}
@@ -536,7 +531,7 @@ const Index = () => {
               key={i}
               // 2. Added cursor-pointer so the whole card feels clickable
               onClick={() => setShowModal(true)}
-              className="group relative bg-white rounded-3xl p-8 border border-slate-100 shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden cursor-pointer"
+              className="group relative bg-white rounded-3xl p-8 border-2 border-transparent shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden cursor-pointer hover:border-indigo-500/40"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${spec.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
               
@@ -552,16 +547,16 @@ const Index = () => {
               </p>
 
               {/* 3. The link is now just a visual guide since the whole card is clickable */}
-              <div className="flex items-center text-xs font-bold uppercase tracking-widest transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 text-indigo-600">
+              <button onClick={() => scrollTo("enquiry")} className="flex items-center text-xs font-bold uppercase tracking-widest transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 text-indigo-600">
                 View Curriculum <ChevronRight size={14} className="ml-1" />
-              </div>
+              </button>
             </div>
           ))}
         </div>
 
         <div className="mt-16 text-center">
           <button 
-            onClick={() => setShowModal(true)}
+           onClick={() => scrollTo("enquiry")}
             className="bg-slate-900 text-white px-8 py-4 rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl hover:shadow-slate-200"
           >
             Download Full Brochure
@@ -604,14 +599,6 @@ const Index = () => {
                   </div>
                 ))}
               </div>
-
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-full font-bold hover:bg-orange-600 transition-all shadow-lg hover:shadow-orange-200"
-              >
-                <Download size={20} />
-                Download Sample PDF
-              </button>
             </div>
 
             {/* Right Side: 3D Certificate Mockup */}
@@ -736,26 +723,64 @@ const Index = () => {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-16 bg-card">
+        <section id="faq" className="py-24 bg-slate-50/50">
         <div className="max-w-3xl mx-auto px-4">
-          <h2 className="font-display text-3xl font-bold text-foreground mb-10 text-center">Frequently Asked Questions</h2>
-          <div className="space-y-3">
-            {FAQS.map((faq, i) => (
-              <div key={i} className="bg-background rounded-xl border overflow-hidden">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between px-6 py-4 text-left">
-                  <span className="text-sm font-semibold text-foreground pr-4">{faq.q}</span>
-                  <ChevronDown className={`text-muted-foreground shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} size={18} />
-                </button>
-                {openFaq === i && (
-                  <div className="px-6 pb-4">
-                    <p className="text-sm text-muted-foreground">{faq.a}</p>
+          <div className="text-center mb-16">
+            <h2 className="font-display text-4xl font-bold text-slate-900 mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-slate-500">Everything you need to know about the admission process and programs.</p>
+          </div>
+
+          <div className="space-y-4">
+            {FAQS.map((faq, i) => {
+              const isOpen = openFaq === i;
+              return (
+                <div 
+                  key={i} 
+                  className={`transition-all duration-300 rounded-2xl border ${
+                    isOpen 
+                      ? "bg-white border-orange-200 shadow-xl shadow-orange-500/5 translate-y-[-2px]" 
+                      : "bg-white/50 border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  <button 
+                    onClick={() => setOpenFaq(isOpen ? null : i)} 
+                    className="w-full flex items-center justify-between px-8 py-6 text-left group"
+                  >
+                    <span className={`text-base font-bold transition-colors duration-300 ${
+                      isOpen ? "text-orange-600" : "text-slate-700 group-hover:text-slate-900"
+                    }`}>
+                      {faq.q}
+                    </span>
+                    
+                    <div className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${
+                      isOpen ? "bg-orange-100 text-orange-600 rotate-180" : "bg-slate-100 text-slate-400 group-hover:bg-slate-200"
+                    }`}>
+                      <ChevronDown size={20} />
+                    </div>
+                  </button>
+
+                  {/* Smooth Height Animation Container */}
+                  <div 
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div className="px-8 pb-6">
+                      <div className="h-px w-full bg-slate-100 mb-4" />
+                      <p className="text-[15px] text-slate-600 leading-relaxed italic">
+                        {faq.a}
+                      </p>
+                    </div>
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
+
 
       {/* Footer */}
       <footer className="bg-foreground py-8">
