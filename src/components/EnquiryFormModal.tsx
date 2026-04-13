@@ -55,7 +55,7 @@ const EnquiryFormModal = () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxLVJsKTH14NmIRaEwn1hyXjvJgCsCWklDvPsfTqQoxDB0q0m2oJ_QpjkptfNXBbup_IA/exec";
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzNElF90nqmgZTreF0ZZChWs6rKbpwlvqwV7E6tbOgT1jnwIYRnHfjIfKyxZQIgnBN3/exec";
 
     try {
       await fetch(GOOGLE_SHEET_URL, {
