@@ -17,34 +17,35 @@ const EnquiryFormModal = () => {
     name: "",
     email: "",
     phone: "",
-    courses: "",
+    course: "", // Changed from 'courses' to 'course' to match your Apps Script
     qualification: "",
     countryCode: "+91",
   });
 
   const [formErrors, setFormErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
 
-  // 🚀 SMART RECURRING POPUP LOGIC
+  // 🚀 SMART POPUP LOGIC
   useEffect(() => {
-    // Check if user has already submitted successfully in the past
     const hasSubmitted = localStorage.getItem("formSubmitted");
-    
-    if (hasSubmitted === "true") return; // Exit if info was already retrieved
+    if (hasSubmitted === "true") return;
 
-    const interval = setInterval(() => {
+    // Open once after 5 seconds instead of every 5 seconds (which can be annoying)
+    const timer = setTimeout(() => {
       setIsOpen(true);
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => clearTimeout(timer);
   }, []);
 
   const validateForm = () => {
-    const errors: typeof formErrors = {};
+    const errors: any = {};
     if (!formData.name.trim()) errors.name = "Name is required";
     if (!formData.email.trim()) errors.email = "Email is required";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = "Invalid email";
+    
+    // Strict 10-digit validation as you requested earlier
     if (!formData.phone.trim()) errors.phone = "Mobile number is required";
-    else if (!/^\d{7,15}$/.test(formData.phone)) errors.phone = "Invalid number";
+    else if (formData.phone.length !== 10) errors.phone = "Must be 10 digits";
     
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -55,31 +56,31 @@ const EnquiryFormModal = () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxKQOCUp5n1oWQnlTLlGGA92RWA487LTsUI_4d5t6jxjSt-o9HTdOP9dTC7hs06SNO1/exec";
+    // Ensure this URL is exactly from your "Managed Deployment"
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxKQOCUp5n1oWQnlTLlGGA92RWA487LTsUI_4d5t6jxjSt-o9HTdOP9dTC7hs06SNO1/exec";
 
     try {
+      // mode: 'no-cors' is used because Google Apps Script doesn't return CORS headers
       await fetch(GOOGLE_SHEET_URL, {
         method: "POST",
         mode: "no-cors", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          source: "nmims", // CRITICAL: This tells the script to use the NMIMS tab
+          source: "nmims", 
           name: formData.name,
           email: formData.email,
-          phone: formData.phone,
-          course: formData.course,
+          phone: formData.countryCode + formData.phone,
+          course: formData.course, // Sent as 'course' to match Apps Script
           timestamp: new Date().toLocaleString(),
         }),
       });
 
-
-      // ✅ SUCCESS: SET STORAGE TO STOP FUTURE POPUPS
+      // ✅ SUCCESS: STOP FUTURE POPUPS
       localStorage.setItem("formSubmitted", "true");
-      
-      setIsOpen(false);
       alert("Enquiry submitted successfully!");
+      setIsOpen(false);
     } catch (err) {
-      alert("Something went wrong!");
+      alert("Something went wrong! Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -106,51 +107,60 @@ const EnquiryFormModal = () => {
 
         <form onSubmit={handleSubmit} className="p-6 lg:p-8 pt-0 space-y-4">
           <div className="grid sm:grid-cols-2 gap-3">
-            <input 
-              className={`border rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20 ${formErrors.name ? "border-red-500" : "border-gray-200"}`} 
-              placeholder="Your name *" 
-              value={formData.name} 
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
-            />
-            <input 
-              className={`border rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20 ${formErrors.email ? "border-red-500" : "border-gray-200"}`} 
-              placeholder="Your email address *" 
-              type="email" 
-              value={formData.email} 
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })} 
-            />
+            <div className="space-y-1">
+              <input 
+                className={`border rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20 ${formErrors.name ? "border-red-500" : "border-gray-200"}`} 
+                placeholder="Your name *" 
+                value={formData.name} 
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
+              />
+              {formErrors.name && <p className="text-[10px] text-red-500 ml-1">{formErrors.name}</p>}
+            </div>
+            <div className="space-y-1">
+              <input 
+                className={`border rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20 ${formErrors.email ? "border-red-500" : "border-gray-200"}`} 
+                placeholder="Your email address *" 
+                type="email" 
+                value={formData.email} 
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })} 
+              />
+              {formErrors.email && <p className="text-[10px] text-red-500 ml-1">{formErrors.email}</p>}
+            </div>
           </div>
 
-          <div className="flex gap-3">
-            <select 
-              className="border border-gray-200 rounded-lg px-2 py-2.5 text-sm bg-gray-50 text-gray-600 w-[90px] shrink-0 outline-none" 
-              value={formData.countryCode} 
-              onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-            >
-              {COUNTRY_CODES.map((c) => <option key={c.code} value={c.code}>{c.code}</option>)}
-            </select>
-            <input 
-              className={`border rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20 ${formErrors.phone ? "border-red-500" : "border-gray-200"}`} 
-              placeholder="Mobile number *"
-              maxLength={10}
-              value={formData.phone} 
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })} 
-            />
+          <div className="flex flex-col gap-1">
+            <div className="flex gap-3">
+              <select 
+                className="border border-gray-200 rounded-lg px-2 py-2.5 text-sm bg-gray-50 text-gray-600 w-[90px] shrink-0 outline-none" 
+                value={formData.countryCode} 
+                onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+              >
+                {COUNTRY_CODES.map((c) => <option key={c.code} value={c.code}>{c.code}</option>)}
+              </select>
+              <input 
+                className={`border rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20 ${formErrors.phone ? "border-red-500" : "border-gray-200"}`} 
+                placeholder="Mobile number *"
+                maxLength={10}
+                value={formData.phone} 
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })} 
+              />
+            </div>
+            {formErrors.phone && <p className="text-[10px] text-red-500 ml-1">{formErrors.phone}</p>}
           </div>
 
           <div className="grid sm:grid-cols-2 gap-3">
             <select 
               className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm bg-white text-gray-600 w-full outline-none" 
-              value={formData.courses} 
-              onChange={(e) => setFormData({ ...formData, courses: e.target.value })}
+              value={formData.course} 
+              onChange={(e) => setFormData({ ...formData, course: e.target.value })}
               required
             >
-              <option value="">Select Courses</option>
+              <option value="">Select Course</option>
               {Courses.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
             <input 
               className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm w-full outline-none focus:ring-2 focus:ring-orange-500/20" 
-              placeholder="Any other (optional)" 
+              placeholder="Qualification" 
               value={formData.qualification} 
               onChange={(e) => setFormData({ ...formData, qualification: e.target.value })} 
             />
@@ -164,7 +174,7 @@ const EnquiryFormModal = () => {
           <button 
             type="submit" 
             disabled={isSubmitting} 
-            className="w-full bg-gradient-to-r from-orange-500 to-rose-500 text-white font-bold py-3.5 rounded-xl mt-2 hover:shadow-lg hover:opacity-95 transition-all flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-orange-500 to-rose-500 text-white font-bold py-3.5 rounded-xl mt-2 hover:shadow-lg hover:opacity-95 transition-all flex items-center justify-center gap-2 disabled:grayscale"
           >
             {isSubmitting ? <><Loader2 className="animate-spin" size={20} /> Processing...</> : "Submit Enquiry"}
           </button>
