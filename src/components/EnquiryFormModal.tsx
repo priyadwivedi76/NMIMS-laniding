@@ -68,7 +68,7 @@ const EnquiryFormModal = () => {
           phone: `${formData.countryCode} ${formData.phone}`,
           course: formData.courses,
           qualification: formData.qualification || "N/A",
-          source: "Recurring Popup",
+          source: "nmims",
           timestamp: new Date().toLocaleString(),
         }),
       });
