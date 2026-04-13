@@ -319,7 +319,7 @@ const Index = () => {
                   {COUNTRY_CODES.map((c) => <option key={c.code} value={c.code}>{c.code} {c.country}</option>)}
                 </select>
                 <div className="flex-1">
-                  <input className={`border rounded-lg px-4 py-2.5 text-sm bg-background w-full ${formErrors.phone ? "border-destructive" : ""}`} placeholder="Mobile number *" value={formData.phone} onChange={(e) => { setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") }); setFormErrors({ ...formErrors, phone: undefined }); }} />
+                  <input maxLength={10} className={`border rounded-lg px-4 py-2.5 text-sm bg-background w-full ${formErrors.phone ? "border-destructive" : ""}`} placeholder="Mobile number *" value={formData.phone} onChange={(e) => { setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") }); setFormErrors({ ...formErrors, phone: undefined }); }} />
                   {formErrors.phone && <p className="text-xs text-destructive mt-1">{formErrors.phone}</p>}
                 </div>
               </div>
