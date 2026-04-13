@@ -616,7 +616,7 @@ const Index = () => {
             </div>
 
             {/* Right Side: 3D Certificate Mockup */}
-            <div className="relative group perspective-1000">
+           <div className="relative group perspective-1000">
               <div className="relative w-full max-w-[400px] transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(-10deg)rotateX(5deg)]">
                 
                 {/* The "Frame" */}
@@ -641,9 +641,18 @@ const Index = () => {
                     <p className="text-sm font-bold text-slate-900">UGC Recognized</p>
                   </div>
                 </div>
+
+                <div className="absolute -bottom-6 -right-10 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 animate-bounce-slow">
+                  <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center">
+                    <Award size={24} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Verified</p>
+                    <p className="text-sm font-bold text-slate-900">AICTE Approved</p>
+                  </div>
+                </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -757,14 +766,14 @@ const Index = () => {
       </footer>
 
       {/* Floating buttons */}
-      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+            <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
         <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="w-12 h-12 rounded-full bg-foreground text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-80 transition-opacity">
           <ArrowUp size={20} />
         </button>
-        <a href="https://wa.me/919785800008" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-emerald-500 text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-80 transition-opacity">
+        <a href="https://wa.me/message/5NJ3AZLMHOTSE1" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-emerald-500 text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-80 transition-opacity">
           <MessageCircle size={20} />
         </a>
-        <a href="tel:9351829620" className="w-12 h-12 rounded-full gradient-coral text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-80 transition-opacity">
+        <a href="tel:9810453823" className="w-12 h-12 rounded-full gradient-coral text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-80 transition-opacity">
           <Phone size={20} />
         </a>
       </div>
