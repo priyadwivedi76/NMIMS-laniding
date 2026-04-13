@@ -55,23 +55,23 @@ const EnquiryFormModal = () => {
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzuvGL4GhCzifCCd7ImPO9ynoS9bF2ZvTipHzkpLJmBLdIjHPKIoKX2U6jI_MkubTMLLA/exec";
+   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzuvGL4GhCzifCCd7ImPO9ynoS9bF2ZvTipHzkpLJmBLdIjHPKIoKX2U6jI_MkubTMLLA/exec";
 
     try {
       await fetch(GOOGLE_SHEET_URL, {
         method: "POST",
-        mode: "no-cors",
+        mode: "no-cors", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          source: "nmims", // CRITICAL: This tells the script to use the NMIMS tab
           name: formData.name,
           email: formData.email,
-          phone: `${formData.countryCode} ${formData.phone}`,
-          course: formData.courses,
-          qualification: formData.qualification || "N/A",
-          source: "nmims",
+          phone: formData.phone,
+          course: formData.course,
           timestamp: new Date().toLocaleString(),
         }),
       });
+
 
       // ✅ SUCCESS: SET STORAGE TO STOP FUTURE POPUPS
       localStorage.setItem("formSubmitted", "true");
