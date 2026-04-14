@@ -1,34 +1,35 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
 
+
 const AlumniSection = () => {
   const alumni = [
     { 
       name: "Rahul Sharma", 
       company: "Google", 
       role: "Product Manager", 
-      image: "https://i.pravatar.cc/150?u=1",
+      image: "Images/boy1.jpg",
       quote: "The flexible curriculum allowed me to balance my job while gaining the strategic skills needed for a PM role at Google."
     },
     { 
       name: "Sneha Kapoor", 
       company: "Microsoft", 
       role: "Software Engineer", 
-      image: "https://i.pravatar.cc/150?u=2",
+      image: "Images/girl1.jpg",
       quote: "Practical assignments and industry-aligned subjects gave me the confidence to ace my technical interviews."
     },
     { 
       name: "Amit Verma", 
       company: "Amazon", 
       role: "Data Scientist", 
-      image: "https://i.pravatar.cc/150?u=3",
+      image: "Images/boy2.jpg",
       quote: "The Business Analytics specialization was a game-changer. I transitioned from sales to data science within 6 months."
     },
     { 
       name: "Priya Das", 
       company: "Deloitte", 
       role: "Financial Analyst", 
-      image: "https://i.pravatar.cc/150?u=4",
+      image: "Images/girl3.jpg",
       quote: "Highly recommend for working professionals. The global networking opportunities are truly unmatched."
     }
   ];
