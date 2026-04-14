@@ -43,7 +43,7 @@ const EnquiryFormModal = () => {
       return prev;
     });
     
-    }, 20000);
+    }, 30000);
     return () => clearInterval(interval);
   }, [submitted]);
 

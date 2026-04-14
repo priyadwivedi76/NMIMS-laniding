@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import ProgramSection from "../components/ProgramSection";
-import { FileText, CreditCard,TrendingUp, Users,UserCheck, Megaphone, Monitor, BarChart3, Database, Settings, Briefcase, Info, Clock, Star, ArrowRight} from "lucide-react";
+import { FileText,Laptop,Zap,PieChart,Coins, Cpu,CreditCard,TrendingUp, Users,UserCheck, Megaphone, Monitor, BarChart3, Database, Settings, Briefcase, Info, Clock, Star, ArrowRight} from "lucide-react";
 import { Menu, X, ChevronDown, ChevronRight, Download,  ChevronLeft, Phone, MessageCircle, ArrowUp, Award, BookOpen, GraduationCap, CheckCircle2 } from "lucide-react";
 import EnquiryFormModal from "@/components/EnquiryFormModal";
+import AlumniSection from '@/components/AlumniSection';
 import heroImg from "@/assets/hero-student.png";
 import nmimsLogo from "@/assets/nmims-logo.png";
 import programBachelor from "@/assets/program-bachelor.png";
@@ -125,6 +126,7 @@ const features = [
 const Index = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [specTab, setSpecTab] = useState("MBA");
   const [modalShownByScroll, setModalShownByScroll] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -139,58 +141,26 @@ const Index = () => {
     countryCode: "+91" 
   });
 
-  const SPECIALIZATIONS = [
-  { 
-    title: "Finance Management", 
-    icon: <TrendingUp size={24} />, 
-    color: "from-blue-500 to-cyan-600",
-    desc: "Investment banking, corporate finance, and wealth management." 
-  },
-  { 
-    title: "Human Resources", 
-    icon: <Users size={24} />, 
-    color: "from-orange-500 to-rose-600",
-    desc: "Talent acquisition, employee engagement, and strategic HR." 
-  },
-  { 
-    title: "Marketing Management", 
-    icon: <Megaphone size={24} />, 
-    color: "from-indigo-400 to-indigo-600",
-    desc: "Digital marketing, brand management, and consumer behavior." 
-  },
-  { 
-    title: "Information Technology", 
-    icon: <Monitor size={24} />, 
-    color: "from-emerald-500 to-teal-600",
-    desc: "Cloud computing, IT infrastructure, and digital transformation." 
-  },
-  { 
-    title: "Business Analytics", 
-    icon: <BarChart3 size={24} />, 
-    color: "from-amber-500 to-orange-600",
-    desc: "Predictive modeling, data visualization, and decision science." 
-  },
-  { 
-    title: "Data Science", 
-    icon: <Database size={24} />, 
-    color: "from-indigo-600 to-blue-700",
-    desc: "Machine learning, big data, and statistical analysis." 
-  },
-  { 
-    title: "Operations Management", 
-    icon: <Settings size={24} />, 
-    color: "from-slate-600 to-slate-800",
-    desc: "Supply chain, logistics, and process optimization." 
-  },
-  { 
-    title: "Business Management", 
-    icon: <Briefcase size={24} />, 
-    color: "from-rose-600 to-pink-600",
-    desc: "Entrepreneurship, strategy, and global business leadership." 
-  }
-];
+  const SPECIALIZATIONS = {
+   MBA:
+   [{ title: "Marketing Management", desc: "Master consumer behavior, digital branding, and market strategy.", icon: <Megaphone size={24} />, color: "from-rose-500 to-pink-600" },
+      { title: "Finance Management", desc: "Expertise in corporate finance, investment banking, and risk.", icon: <Coins size={24} />, color: "from-blue-500 to-indigo-600" },
+      { title: "Business Management", desc: "Comprehensive leadership skills for modern organizational growth.", icon: <Briefcase size={24} />, color: "from-slate-700 to-slate-900" },
+      { title: "IT Management", desc: "Bridge the gap between technology and strategic business goals.", icon: <Laptop size={24} />, color: "from-cyan-500 to-blue-600" },
+      { title: "Business Analytics", desc: "Leverage big data to drive informed corporate decision making.", icon: <BarChart3 size={24} />, color: "from-indigo-500 to-purple-600" },
+      { title: "HR Management", desc: "Focus on talent acquisition, culture, and strategic human capital.", icon: <Users size={24} />, color: "from-amber-500 to-orange-600" },
+      { title: "Operations Management", desc: "Optimize supply chains and streamline organizational efficiency.", icon: <Settings size={24} />, color: "from-emerald-500 to-teal-600" },
+      { title: "Data Science", desc: "Master predictive modeling and advanced statistical analysis.", icon: <Database size={24} />, color: "from-violet-500 to-fuchsia-600" },
+   ],
+    BBA: [
+      { title: "Business Analytics", desc: "Foundational data analysis and visualization for young leaders.", icon: <BarChart3 size={24} />, color: "from-blue-400 to-indigo-500" },
+      { title: "Marketing", desc: "Understand consumer behavior and modern brand strategy.", icon: <Megaphone size={24} />, color: "from-rose-400 to-orange-500" },
+      { title: "Finance", desc: "Master the basics of accounting, banking, and investment.", icon: <Coins size={24} />, color: "from-emerald-400 to-teal-500" }
+    ]
+  };
 
   const [formErrors, setFormErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
+  const currentSpecs = SPECIALIZATIONS[specTab as keyof typeof SPECIALIZATIONS];
 
   const handleHeroSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -297,7 +267,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 py-12 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="font-display text-4xl lg:text-5xl font-black text-coral leading-tight mb-8">
-              Uplift Your Career with NMIMS Online MBA
+              Uplift Your Career with NMIMS Online Programs
             </h1>
             {/* Form */}
             <div className="bg-card rounded-2xl shadow-lg p-6 lg:p-8">
@@ -402,76 +372,8 @@ const Index = () => {
       </div>
     </section>
 
-      {/* Eligibility */}
-      <section className="py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-4xl font-bold text-slate-900 mb-4">
-            Eligibility Criteria
-          </h2>
-          <div className="h-1.5 w-20 bg-gradient-to-r from-indigo-600 to-rose-500 mx-auto rounded-full" />
-        </div>
-
-        {/* HOVER LOGIC: 
-            1. Added 'group' to the parent.
-            2. Added 'transition-all duration-500'.
-            3. Added 'hover:bg-purple-50/50' and 'hover:border-purple-200'.
-        */}
-        <div className="group relative overflow-hidden bg-slate-50 rounded-[2.5rem] p-8 lg:p-12 border border-slate-100 transition-all duration-500 hover:bg-purple-50/50 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-900/5">
-          
-          {/* Subtle Background Icon that reacts to hover */}
-          <div className="absolute top-0 right-0 p-8 opacity-5 text-slate-900 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12 group-hover:text-indigo-600 group-hover:opacity-10">
-            <GraduationCap size={240} />
-          </div>
-
-          <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-            {/* Left Column */}
-            <div className="space-y-6">
-              <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:rotate-[-6deg] group-hover:scale-110">
-                <GraduationCap size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 leading-tight transition-colors duration-500 group-hover:text-purple-900">
-                Academic Foundation <br /> 
-                <span className="text-purple-600">Bachelor's Degree</span>
-              </h3>
-              <p className="text-slate-600 leading-relaxed transition-colors duration-500 group-hover:text-slate-700">
-                Candidates must hold a Bachelor's Degree (10+2+3) in any discipline from a recognized University or an equivalent degree recognized by the AIU.
-              </p>
-            </div>
-
-            {/* Right Column: Key Stats Boxes */}
-            <div className="space-y-4">
-              {/* Box 1 */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
-                <div className="flex-shrink-0 w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center">
-                  <Award size={24} />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">General Category</p>
-                  <p className="text-xl font-bold text-slate-900">Min. 50% Marks</p>
-                </div>
-              </div>
-
-              {/* Box 2 */}
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-md">
-                <div className="flex-shrink-0 w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center">
-                  <CheckCircle2 size={24} />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Reserved Category</p>
-                  <p className="text-xl font-bold text-slate-900">45% (SC/ST/OBC/PwD)</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2 px-2 mt-4 text-xs text-slate-400 italic">
-                <Info size={14} className="mt-0.5 shrink-0" />
-                <span>Degrees must be from a UGC/AIU recognized institution.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </section>
+     <ProgramSection/>
+     <AlumniSection/>
 
       {/* Learning Experience */}
       <section className="py-24 bg-white overflow-hidden">
@@ -516,28 +418,46 @@ const Index = () => {
       </div>
       </section>
 
-      <ProgramSection/>
-
+    
       {/* Specialization */}
       <section className="py-24 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="font-display text-4xl font-bold text-slate-900 mb-4">MBA Specializations</h2>
-          <p className="text-slate-500 max-w-2xl mx-auto">
-            Choose a path that aligns with your career goals. Explore our industry-aligned specializations.
+        
+        <div className="text-center mb-12">
+          <h2 className="font-display text-4xl font-bold text-slate-900 mb-4 tracking-tight">Specializations</h2>
+          <p className="text-slate-500 max-w-2xl mx-auto mb-8">
+            Select your preferred track and build expertise in your chosen domain.
           </p>
+          
+          <div className="flex justify-center">
+            <div className="bg-slate-200/60 p-1.5 rounded-2xl flex gap-2 border border-slate-200">
+              {["MBA", "BBA"].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setSpecTab(tab)}
+                  className={`px-10 py-3 rounded-xl font-bold transition-all duration-300 ${
+                    specTab === tab 
+                    ? "bg-white text-slate-900 shadow-md scale-[1.02]" 
+                    : "text-slate-500 hover:text-slate-700"
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SPECIALIZATIONS.map((spec, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[320px]">
+          {currentSpecs.map((spec, i) => (
             <div 
-              key={i}
-              // 2. Added cursor-pointer so the whole card feels clickable
+              key={`${specTab}-${i}`}
               onClick={() => setShowModal(true)}
-              className="group relative bg-white rounded-3xl p-8 border-2 border-transparent shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden cursor-pointer hover:border-indigo-500/40"
+              className="group relative bg-white rounded-3xl p-8 border-2 border-transparent shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden cursor-pointer hover:border-indigo-500/40 flex flex-col min-h-[320px]"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${spec.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
               
+              {/* Icon Container */}
               <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${spec.color} flex items-center justify-center text-white mb-6 shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
                 {spec.icon}
               </div>
@@ -545,28 +465,25 @@ const Index = () => {
               <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-slate-900 transition-colors">
                 {spec.title}
               </h3>
-              <p className="text-sm text-slate-500 group-hover:text-slate-800 leading-relaxed mb-6">
+              
+              {/* Added flex-grow so the text area pushes the button to the bottom */}
+              <p className="text-sm text-slate-500 group-hover:text-slate-800 leading-relaxed mb-6 flex-grow">
                 {spec.desc}
               </p>
 
-              {/* 3. The link is now just a visual guide since the whole card is clickable */}
-              <button onClick={() => scrollTo("enquiry")} className="flex items-center text-xs font-bold uppercase tracking-widest transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 text-indigo-600">
+              {/* Button will now always sit at the bottom of the card */}
+              <button 
+                onClick={(e) => { e.stopPropagation(); scrollTo("enquiry"); }} 
+                className="flex items-center text-xs font-bold uppercase tracking-widest transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 text-indigo-600 mt-auto"
+              >
                 View Curriculum <ChevronRight size={14} className="ml-1" />
               </button>
             </div>
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <button 
-           onClick={() => scrollTo("enquiry")}
-            className="bg-slate-900 text-white px-8 py-4 rounded-full font-bold hover:bg-slate-800 transition-all shadow-xl hover:shadow-slate-200"
-          >
-            Download Full Brochure
-          </button>
-        </div>
       </div>
-    </section>
+      </section>
+  
 
       {/* Sample Certificate */}
       <section id="sample-certificate" className="py-24 bg-slate-50 overflow-hidden">
