@@ -26,7 +26,7 @@ const EnquiryFormModal = () => {
   const [formErrors, setFormErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
 
   useEffect(() => {
-    //localStorage.removeItem("formSubmitted");
+    localStorage.removeItem("formSubmitted");
     
     const hasSubmitted = localStorage.getItem("formSubmitted");
   if (hasSubmitted === "true") {
