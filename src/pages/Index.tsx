@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import ProgramSection from "../components/ProgramSection";
 import { FileText, CreditCard,TrendingUp, Users,UserCheck, Megaphone, Monitor, BarChart3, Database, Settings, Briefcase, Info, Clock, Star, ArrowRight} from "lucide-react";
 import { Menu, X, ChevronDown, ChevronRight, Download,  ChevronLeft, Phone, MessageCircle, ArrowUp, Award, BookOpen, GraduationCap, CheckCircle2 } from "lucide-react";
 import EnquiryFormModal from "@/components/EnquiryFormModal";
@@ -515,6 +516,8 @@ const Index = () => {
       </div>
       </section>
 
+      <ProgramSection/>
+
       {/* Specialization */}
       <section className="py-24 bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
@@ -780,7 +783,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
 
       {/* Footer */}
       <footer className="bg-foreground py-8">
