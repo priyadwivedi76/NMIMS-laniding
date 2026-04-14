@@ -217,7 +217,7 @@ const Index = () => {
 
       localStorage.setItem("formSubmitted", "true");
       console.log(formData.phone)
-      alert("Enquiry submitted successfully!");
+      // alert("Enquiry submitted successfully!");
       
       // Reset form
       setFormData({
