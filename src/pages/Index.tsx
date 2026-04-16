@@ -11,7 +11,7 @@ import programExecutive from "@/assets/program-executive.png";
 import programOnline from "@/assets/program-online.png";
 import sampleCertificate from "@/assets/sample-certificate.png";
 
-const NAV_LINKS = ["Programs", "Sample Certificate", "Admission Process", "FAQ"];
+const NAV_LINKS = [ "Sample Certificate", "Admission Process", "FAQ"];
 
 const PROGRAMS = [
   { name: "Bachelor Programs", mode: "ONLINE", image: programBachelor, bg: "bg-rose-50" },
@@ -552,7 +552,7 @@ const Index = () => {
                   <div className="w-10 h-10 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center">
                     <Award size={24} />
                   </div>
-                  <div>
+                  <div >
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Verified</p>
                     <p className="text-sm font-bold text-slate-900">AICTE Approved</p>
                   </div>

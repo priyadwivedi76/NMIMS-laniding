@@ -43,7 +43,7 @@ const ProgramSection = () => {
       bgLight: "bg-blue-50",
       eligibility: {
         title: "10+2 / HSC Pass",
-        criteria: "Min. 50% Marks (45% for Reserved)",
+        criteria: "Commerce Stream Preferred",
         note: "Recognized State/Central Board"
       },
     }
@@ -100,7 +100,7 @@ const ProgramSection = () => {
                 <div key={idx} className="flex items-center gap-3">
                   <div className={`p-1 rounded-full bg-gradient-to-br ${current.color} text-white`}>
                     <CheckCircle2 size={16} />
-                  </div>
+                  </div> 
                   <span className="font-semibold text-slate-700">{item}</span>
                 </div>
               ))}
@@ -126,9 +126,9 @@ const ProgramSection = () => {
             {current.subjects.map((sub, idx) => (
               <div 
                 key={idx} 
-                className="group p-6 border-2 border-slate-50 rounded-2xl bg-red-300 hover:border-white hover:bg-white hover:shadow-xl transition-all duration-300"
+                className="group p-6 border-2 border-slate-50 rounded-2xl bg-red-300 hover:border-white hover:bg-white hover:shadow-2xl transition-all duration-300"
               >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-slate-800 group-hover:bg-slate-900 group-hover:text-white transition-colors mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-slate-800 group-hover:bg-slate-200 transition-colors mb-4">
                   <GraduationCap size={20} />
                 </div>
                 <p className="font-bold text-slate-800 leading-tight">{sub}</p>
